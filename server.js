@@ -19,7 +19,7 @@ async function save(){ if(saving){dirty=true;return;} saving=true;dirty=false;
   catch(e){console.error(e);dirty=true}
   saving=false; if(dirty)setTimeout(save,1500);}
 function merge(inc){let n=0;for(const[id,it]of Object.entries(inc.items||{})){const c=doc.items[id];if(!c||(it.u||0)>(c.u||0)){doc.items[id]=it;n++;}}
-  if(inc.meta&&(inc.meta.u||0)>(doc.meta.u||0)){doc.meta=inc.meta;n++;}return n;}
+  if(inc.meta&&(inc.meta.u||0)>(doc.meta.u||0)){doc.meta={...doc.meta,...inc.meta};n++;}return n;}
 const cors={'Access-Control-Allow-Origin':ORIGIN,'Access-Control-Allow-Headers':'content-type,x-trip-key','Access-Control-Allow-Methods':'GET,POST,OPTIONS'};
 function send(res,c,o){res.writeHead(c,{...cors,'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(o));}
 http.createServer(async(req,res)=>{
