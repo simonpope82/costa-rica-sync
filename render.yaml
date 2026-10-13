@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: costa-rica-sync
+    runtime: node
+    plan: free
+    buildCommand: "true"
+    startCommand: node server.js
+    healthCheckPath: /health
+    envVars:
+      - key: TRIP_PASSWORD
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: DATA_REPO
+        value: simonpope82/costa-rica-data
+      - key: ALLOW_ORIGIN
+        value: https://simonpope82.github.io
